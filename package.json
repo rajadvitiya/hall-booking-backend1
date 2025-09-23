@@ -1,0 +1,30 @@
+{
+  "name": "hall-booking",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "production": "npm start --production"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cloudinary": "^2.7.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^4.21.2",
+    "json": "^11.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^4.8.0",
+    "mongoose": "^8.18.1",
+    "multer": "^2.0.2",
+    "nodemailer": "^7.0.6",
+    "path": "^0.12.7",
+    "razorpay": "^2.9.6",
+    "socket.io": "^4.8.1",
+    "stripe": "^18.5.0"
+  }
+}
