@@ -207,7 +207,7 @@ app.post("/api/bookings", async (req, res) => {
     const admin = await Admin.findOne({});
      const adminEmail = admin?.email;
     try {
-      await transporter.sendMail({
+      await sgMail.send({
         from: `"Booking App" <${process.env.EMAIL_FROM}>`,
         to: adminEmail,
         subject: "New Booking Request",
