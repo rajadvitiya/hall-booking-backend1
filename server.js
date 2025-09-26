@@ -15,6 +15,7 @@ import Contact from "./models/contact.js";
 import multer from "multer";
 import { v2 as cloudinary } from "cloudinary";
 import GalleryImage from "./models/galleryImage.js";
+import sgMail from "@sendgrid/mail";
 // import Admin from "./models/Admin.js";
 
 dotenv.config();
