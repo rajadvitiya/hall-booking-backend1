@@ -65,21 +65,23 @@ const razorpay = new Razorpay({
   key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
 
-// --- Email Setup ---
-const transporter = nodemailer.createTransport({
-  host: process.env.EMAIL_HOST,
-  port: Number(process.env.EMAIL_PORT),
-  secure: false,
-  auth: {
-    user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_PASS,
-  },
-});
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-transporter.verify((err, success) => {
-  if (err) console.error("Mailer error:", err);
-  else console.log("✅ Mailer is ready to send emails");
-});
+// --- Email Setup ---
+// const transporter = nodemailer.createTransport({
+//   host: process.env.EMAIL_HOST,
+//   port: Number(process.env.EMAIL_PORT),
+//   secure: false,
+//   auth: {
+//     user: process.env.GMAIL_USER,
+//     pass: process.env.GMAIL_PASS,
+//   },
+// });
+
+// transporter.verify((err, success) => {
+//   if (err) console.error("Mailer error:", err);
+//   else console.log("✅ Mailer is ready to send emails");
+// });
 
 // --- Middleware: Verify Admin Token ---
 function verifyAdmin(req, res, next) {
@@ -303,7 +305,7 @@ app.post("/api/admin/bookings/:id/approve", verifyAdmin, async (req, res) => {
 
     // ✅ Send email
     if (booking.email) {
-      await transporter.sendMail({
+      await sgMail.send({
         from: `"Booking App" <${process.env.EMAIL_FROM}>`,
         to: booking.email,
         subject: "Booking Approved - Complete Payment",
@@ -378,7 +380,7 @@ app.post("/api/admin/bookings/:id/reject", verifyAdmin, async (req, res) => {
     await booking.deleteOne();
 
     if (booking.email) {
-      await transporter.sendMail({
+      await sgMail.send({
         from: `"Booking App" <${process.env.EMAIL_FROM}>`,
         to: booking.email,
         subject: "Booking Rejected",
