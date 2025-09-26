@@ -205,7 +205,7 @@ app.post("/api/bookings", async (req, res) => {
      const adminEmail = admin?.email;
     try {
       await transporter.sendMail({
-        from: `"Booking App" <${process.env.GMAIL_USER}>`,
+        from: `"Booking App" <${process.env.EMAIL_FROM}>`,
         to: adminEmail,
         subject: "New Booking Request",
         text: `A new booking request has been submitted by ${booking.name}.`,
@@ -303,7 +303,7 @@ app.post("/api/admin/bookings/:id/approve", verifyAdmin, async (req, res) => {
     // ✅ Send email
     if (booking.email) {
       await transporter.sendMail({
-        from: `"Booking App" <${process.env.GMAIL_USER}>`,
+        from: `"Booking App" <${process.env.EMAIL_FROM}>`,
         to: booking.email,
         subject: "Booking Approved - Complete Payment",
         html: `
@@ -378,7 +378,7 @@ app.post("/api/admin/bookings/:id/reject", verifyAdmin, async (req, res) => {
 
     if (booking.email) {
       await transporter.sendMail({
-        from: `"Booking App" <${process.env.GMAIL_USER}>`,
+        from: `"Booking App" <${process.env.EMAIL_FROM}>`,
         to: booking.email,
         subject: "Booking Rejected",
         text: `Sorry, your booking request has been rejected and removed from our system.`,
